@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="post">
+    <div class = "title">
+        <h2>{{ post.title }}</h2>
+        <p>Author: {{post.user}}</p>
+        <center><hr></center>
+    </div>
+    <center><div><img src="{{ post.image.url }}"></div>
+        <p class="margin">Date of publication: {{post.add_date}}</p></center>
+        <p class="contents-post"> {{ post.contents}} </p>
+        {%if coments_list %}
+        <h3 class="comments">Comments:</h3></br>
+            {% for instance in coments_list %}
+            <div class="box-comments border border-light shadow-sm p-3 mb-5 bg-white rounded">
+                <p class="mt-0 comments"><b>{{ instance.user }}</b> {{instance.add_date}}</p>
+                <p>{{ instance.contents }} </p>
+            </div>
+            {% endfor %}
+        {% else %}
+        <h3>No comments found!</h3><br>
+        {% endif %}
+        {%if user.is_authenticated %}
+        <div class="margin-comments">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-dark">Save</button>
+        </form>
+        </div>
+        {% else %}
+        <center>You have to log in to be able to add comments
+            <br>
+        <a class="btn btn-dark" href="{% url 'login'%}" >Login</a>
+        </center> <br>
+        {% endif %}
+        <script>
+          var name = "{{ user.id }}";
+          document.getElementById("elder").value = name;
+        </script>
+</div>
+{% endblock %}
+

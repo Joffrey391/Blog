@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+    <br><br>
+    {%if user.is_authenticated %}
+    <h3>Delete post: {{post.title}} </h3><br>
+    <form method="POST">
+        {% csrf_token %}
+        <p>Are you sure?</p>
+        <div class="parent">
+            <input class="btn btn-dark" type="submit" value="Yes"/>
+            <a href = "{% url 'my_blog'%}" class="btn btn-dark">No</a>
+        </div>
+    </form>
+{% else %}
+    <center><h3>You are not allowed to remove this content</h3><br>
+    <a class="btn btn-dark" href="{% url 'register'%}" >Register</a> or
+    <a class="btn btn-dark" href="{% url 'login'%}" >Login</a>
+    </center>
+{% endif %}
+</center>
+{% endblock %}s

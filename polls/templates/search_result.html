@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class = "container">
+    <div class = "title">
+        <h2>All posts</h2>
+    </div>
+    <div class = "design-content">
+        {%if scan_post %}
+            {% for record in scan_post %}
+           <div class = "design-item  border-light mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+               <div class="bg-transparent"><h2>{{ record.title }}</h2></div>
+                <div class="design-img">
+                <img src="{{ record.image.url }}">
+                </div>
+                    <h4>Author: {{ record.user }} </h4>
+                    <a class="btn btn-dark" href="{{ record.get_absolute_url}}">Read</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="center-text">Nothing found, try again</div>
+        {% endif %}
+            {% endblock %}
+    </div>
+</div>

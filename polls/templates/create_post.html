@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+{%if user.is_authenticated %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <input class="btn btn-dark" type="submit" value="Save"/>
+    </form>
+{% else %}
+    <center><h3>You are not allowed to be here</h3><br>
+    <a class="btn btn-dark" href="{% url 'register'%}" >Register</a> or
+    <a class="btn btn-dark" href="{% url 'login'%}" >Login</a>
+    </center>
+{% endif %}
+<script>
+    var name = "{{ user.id }}";
+    document.getElementById("put_user_here").value = name;
+</script>
+{% endblock %}s

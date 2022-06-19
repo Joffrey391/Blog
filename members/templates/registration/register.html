@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{%block title%}Register{%endblock%}
+
+{% block content %}
+<div class="container-register">
+    <h2>Register</h2>
+    <br>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+       function onSubmit(token) {
+         document.getElementById("demo-form").submit();
+       }
+    </script>
+<div class="form-group">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% for field in registration_form %}
+        <p>
+            {{field.label_tag}}
+            {{field}}
+
+            {% if field.help_text %}
+                <small style="color:grey;">{{field.help_text}}</small>
+            {% endif %}
+
+            {% for error in field.errors %}
+                <p style="color: red;">{{error}}</p>
+            {% endfor %}
+        </p>
+
+        {% endfor %}
+        <button class="btn btn-dark" class="g-recaptcha" data-sitekey="6LeLiOcaAAAAAEl3w0qbcoYAHlbwy-JwvzivGO2k" data-callback='onSubmit' data-action='submit'>Submit</button>
+    </form>
+</div>
+</div>
+{% endblock %}s
